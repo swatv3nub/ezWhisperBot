@@ -37,7 +37,7 @@ from data import whispers
 ANSWER_CALLBACK_QUERY_MAX_LENGTH = 200
 
 # https://www.freeiconspng.com/downloadimg/37535
-WHISPER_ICON_URL = "https://www.freeiconspng.com/uploads/whisper-icon-0.png"
+WHISPER_ICON_URL = "https://telegra.ph/file/33c5de10d43cad1953e98.jpg"
 
 
 @app.on_inline_query()
