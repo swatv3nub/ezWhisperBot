@@ -29,7 +29,7 @@ from pyrogram.types import (
     CallbackQuery,
     ChosenInlineResult
 )
-
+from bot import app
 from data import whispers
 
 # https://core.telegram.org/bots/api#answercallbackquery
@@ -40,7 +40,7 @@ ANSWER_CALLBACK_QUERY_MAX_LENGTH = 200
 WHISPER_ICON_URL = "https://www.freeiconspng.com/uploads/whisper-icon-0.png"
 
 
-@Client.on_inline_query()
+@app.on_inline_query()
 async def answer_iq(_, iq: InlineQuery):
     query = iq.query
     split = query.split(' ', 1)
@@ -48,11 +48,11 @@ async def answer_iq(_, iq: InlineQuery):
             or (query.startswith('@') and len(split) == 1):
         title = f"{emoji.FIRE} Write a whisper message"
         content = ("**Send whisper messages through inline mode**\n\n"
-                   "Usage: `@ezWhisperBot [@username|@] text`")
-        description = "Usage: @ezWhisperBot [@username|@] text"
+                   "Usage: `@PyroWhisperBot [@username|@] text`")
+        description = "Usage: @PyroWhisperBot [@username|@] text"
         button = InlineKeyboardButton(
             "Learn more...",
-            url="https://t.me/ezWhisperBot?start=learn"
+            url="https://t.me/PyroWhisperBot?start=learn"
         )
     elif not query.startswith('@'):
         title = f"{emoji.EYE} Whisper once to the first one who open it"
@@ -91,7 +91,7 @@ async def answer_iq(_, iq: InlineQuery):
     )
 
 
-@Client.on_chosen_inline_result()
+@app.on_chosen_inline_result()
 async def chosen_inline_result(_, cir: ChosenInlineResult):
     query = cir.query
     split = query.split(' ', 1)
@@ -114,7 +114,7 @@ async def chosen_inline_result(_, cir: ChosenInlineResult):
     }
 
 
-@Client.on_callback_query(filters.regex("^show_whisper$"))
+@app.on_callback_query(filters.regex("^show_whisper$"))
 async def answer_cq(_, cq: CallbackQuery):
     inline_message_id = cq.inline_message_id
     if not inline_message_id or inline_message_id not in whispers:

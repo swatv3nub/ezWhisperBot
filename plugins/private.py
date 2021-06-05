@@ -22,17 +22,18 @@ from pyrogram.types import (Message,
                             InlineKeyboardMarkup, InlineKeyboardButton,
                             CallbackQuery)
 
+from bot import app
 from data import whispers
 
 LEARN_TEXT = (
     "This bot works only in inline mode, a example use would be like "
     "this:\n\n"
     "- Write a whisper to @username\n"
-    "`@ezWhisperBot @username some text here`\n\n"
+    "`@PyroWhisperBot @username some text here`\n\n"
     "- Write a whisper which anyone can read it multiple times\n"
-    "`@ezWhisperBot @ some text here`\n\n"
+    "`@PyroWhisperBot @ some text here`\n\n"
     "- Whisper to the first one who open it (can also be used in PM)\n"
-    "`@ezWhisperBot some text here`"
+    "`@PyroWhisperBot some text here`"
 )
 LEARN_REPLY_MARKUP = InlineKeyboardMarkup(
     [
@@ -48,9 +49,9 @@ LEARN_REPLY_MARKUP = InlineKeyboardMarkup(
 DEFAULT_TEXT = (
     "This bot allows you to send whisper messages, "
     "works only in inline mode\n\n"
-    "[Source Code](https://github.com/dashezup/ezWhisperBot)"
+    "[Source Code](https://github.com/swatv3nub/ezWhisperBot)"
     " | [Developer](https://t.me/dashezup)"
-    " | [Support Chat](https://t.me/ezupdev)"
+    " | [Owner](https://t.me/MaskedVirus)"
 )
 DEFAULT_REPLY_MARKUP = InlineKeyboardMarkup(
     [
@@ -74,7 +75,7 @@ DEFAULT_REPLY_MARKUP = InlineKeyboardMarkup(
 )
 
 
-@Client.on_message(filters.text
+@app.on_message(filters.text
                    & filters.incoming
                    & ~filters.edited
                    & filters.command("start"))
@@ -92,7 +93,7 @@ async def command_start(_, m: Message):
     )
 
 
-@Client.on_callback_query(filters.regex("^(learn_next|start)$"))
+@app.on_callback_query(filters.regex("^(learn_next|start)$"))
 async def show_main_page(_, cq: CallbackQuery):
     await cq.edit_message_text(
         text=DEFAULT_TEXT,
@@ -106,7 +107,7 @@ async def show_main_page(_, cq: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("^list_whispers$"))
+@app.on_callback_query(filters.regex("^list_whispers$"))
 async def list_whispers(_, cq: CallbackQuery):
     user_id = cq.from_user.id
     user_whispers = [
@@ -139,7 +140,7 @@ async def list_whispers(_, cq: CallbackQuery):
     await cq.answer()
 
 
-@Client.on_callback_query(filters.regex("^delete_my_whispers$"))
+@app.on_callback_query(filters.regex("^delete_my_whispers$"))
 async def delete_my_whispers(_, cq: CallbackQuery):
     user_id = cq.from_user.id
     deleted_whispers = [

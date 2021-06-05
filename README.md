@@ -9,23 +9,10 @@ Telegram Bot for sending whisper messages
 - A Telegram Bot created with [BotFather](https://t.me/BotFather)
   with "inline mode" and "Inline Feedback" enabled
 
-### Setup
-
-Create a new `config.ini`, copy-paste the following and replace the values with
-your own
+### Run the bot
 
 ```
-[pyrogram]
-api_id = 1234567
-api_hash = 0123456789abcdef0123456789abcdef
-bot_token = 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
-```
-
-Run the bot
-
-```
-virtualenv venv
-venv/bin/python bot.py
+python3 -m bot.py
 ```
 
 ### License
